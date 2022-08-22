@@ -21,17 +21,33 @@ if(isset($_POST['addpost'])){
     echo $starttime;echo "<br>";
     echo $endtime;echo "<br>";
 
-    $totaltime=(strtotime($endtime)-strtotime($starttime))/3600;
-    echo $totaltime;
-     // this is used for time calculation 
+    if (strtotime($endtime)>strtotime($starttime)) {
+        $totaltime=(strtotime($endtime)-strtotime($starttime))/3600;
+        echo $totaltime;
+        // this is used for time calculation 
 
-    $query="INSERT INTO csrtimesheet (NameOfStd,emailOfStd,yearOfPr,csrPr,club,date,fromTime,endTime,totalTime,status) VALUES('$uname','$uemail','$year','$program','$clubname','$date','$starttime','$endtime','$totaltime','$status')";
-    $run=mysqli_query($db,$query);
+        $query="INSERT INTO csrtimesheet (NameOfStd,emailOfStd,yearOfPr,csrPr,club,date,fromTime,endTime,totalTime,status) VALUES('$uname','$uemail','$year','$program','$clubname','$date','$starttime','$endtime','$totaltime','$status')";
+        $run=mysqli_query($db,$query);
 
-    echo $run;
-   
+        echo $run;
+    
 
-    header('location:../adminlogin/student.php');
+        header('location:../adminlogin/student.php');
+    }
+    else {
+        ?>
+            <script>
+            alert("welcome ");
+
+            setTimeout(function () {    
+                window.location.href = '../adminlogin/generatereport.php'; 
+            },0);
+            </script>
+        <?php
+        // header('location:../adminlogin/generatereport.php');
+    }
+    
+     
 }
 
 ?>

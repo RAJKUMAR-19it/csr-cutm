@@ -3,6 +3,20 @@ session_start();
 require('../includes/function.php');
 $uemail=$_SESSION['email'];
 $utype=$_SESSION['usertype'];
+
+// this is- get total csr Activity
+$conn =mysqli_connect('localhost','root','','cutm_csr');
+$uSports=getStudentSports($conn,$uemail);
+echo $uSports;
+
+$uResponsibility=getStudentResponsibility($conn,$uemail);
+echo $uSports;
+
+$uCulture=getStudentCulture($conn,$uemail);
+echo $uSports;
+
+
+
 if($_SESSION['email'] and $utype=="student")
 {
   ?>
@@ -140,6 +154,86 @@ else
         </ol>
       </nav>
     </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-lg">
+          <div class="row">
+
+            <!-- Sales Card -->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Sports</h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-people"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6><?=$uSports?> H</h6>
+                      </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Sales Card -->
+
+            <!-- Revenue Card -->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card revenue-card">
+                <div class="card-body">
+                  <h5 class="card-title">Responsibility</h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-people"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6><?=$uResponsibility?> H</h6>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Revenue Card -->
+
+            <!-- Customers Card -->
+            <div class="col-xxl-4 col-xl-12">
+
+              <div class="card info-card customers-card">
+                <div class="card-body">
+                  <h5 class="card-title">Culture</h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-people"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6><?=$uCulture?> H</h6>
+                      </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div><!-- End Customers Card -->
+
+            <!-- Reports -->
+
+            
+
+
+          </div>
+        </div><!-- End Left side columns -->
+
+        
+
+      </div>
+
+    </section>
 
     <section class="section">
       <div class="row">

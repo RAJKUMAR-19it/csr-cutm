@@ -45,4 +45,25 @@
         $data=mysqli_fetch_assoc($run);
         return $data['name'];
     }
+
+    function getStudentSports($db,$uemail){
+        $query="SELECT SUM(totalTime) as totalTime FROM csrtimesheet WHERE emailOfStd='$uemail' AND csrPr='Sports'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data['totalTime'];
+    }
+
+    function getStudentResponsibility($db,$uemail){
+        $query="SELECT SUM(totalTime) as totalTime FROM csrtimesheet WHERE emailOfStd='$uemail' AND csrPr='Responsibility'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data['totalTime'];
+    }
+
+    function getStudentCulture($db,$uemail){
+        $query="SELECT SUM(totalTime) as totalTime FROM csrtimesheet WHERE emailOfStd='$uemail' AND csrPr='Culture'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data['totalTime'];
+    }
 ?>
