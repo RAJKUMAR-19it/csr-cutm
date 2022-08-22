@@ -174,7 +174,7 @@ else
             <form action="../includes/addreport.php" method="post" enctype="multipart/form-data">
 
 
-              <input type="hidden" name="uname" value="<?=$uname['name']?>">
+              <input type="hidden" name="uname" value="<?=$uname?>">
               <input type="hidden" name="uemail" value="<?=$uemail?>">
 
                 <div class="col-lg">

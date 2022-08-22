@@ -5,7 +5,7 @@
     
 
     if(isset($_SESSION['isUserLoggedIn']) && $_SESSION['isUserLoggedIn']){
-        header('location:adminlogin/index.php');
+        echo"<script>alert('Please Logout Before login');</script>";
     }
 
     if(isset($_POST['loginadmin'])){

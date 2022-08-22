@@ -38,4 +38,11 @@
         }
         return $data;
     }
+
+    function getUserNmae($db,$uemail){
+        $query="SELECT * FROM student WHERE email='$uemail'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data['name'];
+    }
 ?>
