@@ -106,4 +106,32 @@
         $data=mysqli_fetch_assoc($run);
         return $data['totalTime'];
     }
+
+    function getStudentResultyr1($db,$uemail,$year){
+        $query="SELECT * FROM certificatelog WHERE email='$uemail' AND Year='$year'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data;
+    }
+
+    function getStudentResultyr2($db,$uemail,$year){
+        $query="SELECT * FROM certificatelog WHERE email='$uemail' AND Year='$year'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data;
+    }
+
+    function getStudentResultyr3($db,$uemail,$year){
+        $query="SELECT * FROM certificatelog WHERE email='$uemail' AND Year='$year'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data;
+    }
+
+    function getStudentResultyr4($db,$uemail,$year){
+        $query="SELECT * FROM certificatelog WHERE email='$uemail' AND Year='$year'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data;
+    }
 ?>
