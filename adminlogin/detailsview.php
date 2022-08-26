@@ -15,6 +15,19 @@ else
 {
   header('location:../includes/logout.php');
 }
+
+
+if(isset($_POST['sendemail'])){
+  $email=$_POST['sendemailtoadmin'];
+}
+
+if(isset($_POST['backtoadmin'])){
+  header('location:admin.php');
+}
+
+if(isset($_POST['approved'])){
+  $email=$_POST['sendemailtoadmin'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -147,134 +160,36 @@ else
                     <th>Sl</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Total Hour Worked</th>
-                    <th scope="col">Grade</th>
-                    <th scope="col">Details View</th>
+                    <th scope="col-8">Year of Program</th>
+                    <th scope="col">Csr program</th>
+                    <th scope="col">Club</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">From Time</th>
+                    <th scope="col">End Time</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
                     $conn =mysqli_connect('localhost','root','','cutm_csr');
-                    $posts=getAllPostAdmin($conn);
+                    $posts=getAllPostByAdmin($conn,$email);
                     $count=1;
                     foreach($posts as $post){
-                      if ($post['totalTime'] >= 10) {
-                        $gradeIs="o";
-                      }
-                      elseif ($post['totalTime'] >= 9) {
-                        $gradeIs="E";
-                      }
-                      elseif ($post['totalTime'] >= 8) {
-                        $gradeIs="A";
-                      }
-                      elseif ($post['totalTime'] >= 7) {
-                        $gradeIs="B";
-                      }
-                      elseif ($post['totalTime'] >= 6) {
-                        $gradeIs="C";
-                      }
-                      elseif ($post['totalTime'] >= 5) {
-                        $gradeIs="D";
-                      }
-                      else{
-                        $gradeIs="F";
-                      }
-
-                      $studentData=getAllStudentDetails($conn,$post['emailOfStd']);
                     ?>
                       <tr>
                         <th scope="row"><?=$count?></th>
                         <td><?=$post['NameOfStd']?></td>
                         <td><?=$post['emailOfStd']?></td>
+                        <td><?=$post['yearOfPr']?></td>
+                        <td><?=$post['csrPr']?></td>
+                        <td><?=$post['club']?></td>
+                        <td><?=$post['date']?></td>
+                        <td><?=$post['fromTime']?></td>
+                        <td><?=$post['endTime']?></td>
                         <td><?=$post['totalTime']?></td>
-                        <td><?=$gradeIs?></td>
-                        <td>
-                          <a href="#" class="btn btn-dark" target="_blank" data-toggle="modal" data-target=".<?=$post['id']?>">
-                            Details 
-                          </a>
-                        </td>
+                        <td><?=$post['status']?></td>
                       </tr>
-
-                      <div class="modal fade <?=$post['id']?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                          <div class="modal-content">
-
-                          <br>
-
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <div class="card mb-4">
-                                        <div class="card-body text-center">
-                                            <img src="https://chinmayakumarbiswal.in/chi.jpg" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-                                            <h5 class="my-3"><?=$post['NameOfStd']?></h5>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-8">
-                                    <div class="card mb-4">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <p class="mb-0">Full Name</p>
-                                                </div>
-                                                <div class="col-sm-9">
-                                                    <p class="text-muted mb-0"><?=$studentData['name']?></p>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <p class="mb-0">Email</p>
-                                                </div>
-                                                <div class="col-sm-9">
-                                                    <p class="text-muted mb-0"><?=$studentData['email']?></p>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <p class="mb-0">Regd No</p>
-                                                </div>
-                                                <div class="col-sm-9">
-                                                    <p class="text-muted mb-0"><?=$studentData['regd']?></p>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <p class="mb-0">Mobile</p>
-                                                </div>
-                                                <div class="col-sm-9">
-                                                    <p class="text-muted mb-0"><?=$studentData['mobile']?></p>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                          </div>
-                                        
-                                    </div>
-
-                                    
-                                    <div class="modal-footer">
-                              
-                                      <form method="post" action="detailsview.php">
-                                        <input class="form-control" type="hidden" name="sendemailtoadmin" value="<?=$studentData['email']?>">
-                                        <button type="submit" class="btn btn-primary" name="sendemail">Details View</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                      </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                            
-                          </div>
-                        </div>
-                        
-                      </div>
-
-
-
-
                     <?php
                     $count++;
                   }
@@ -285,7 +200,12 @@ else
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->
-
+              <form method="post" action="../includes/insertcertificate.php">
+                <input type="hidden" name="userNameFromAdmin" value="<?=$post['NameOfStd']?>">
+                <input type="hidden" name="userEmailFromAdmin" value="<?=$email?>">
+                <button class="btn btn-primary btn-lg float-right" type="Submit" name="backtoadmin">Back To Admin</button>
+                <button class="btn btn-success btn-lg float-right" type="submit" name="approved">Approved Certificate</button>
+              </form>
             </div>
           </div>
 

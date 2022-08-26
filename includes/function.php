@@ -66,4 +66,44 @@
         $data=mysqli_fetch_assoc($run);
         return $data['totalTime'];
     }
+
+    function getAllStudentDetails($db,$uemail){
+        $query="SELECT * FROM student WHERE email='$uemail' ORDER BY id DESC";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data;
+    }
+
+    function getAllPostByAdmin($db,$uemail){
+        $year = date("Y"); 
+
+        $query="SELECT * FROM csrtimesheet WHERE emailOfStd='$uemail' AND yearOfPr='$year' AND status='Approved' ORDER BY id DESC";
+        $run=mysqli_query($db,$query);
+        $data=array();
+        while($d=mysqli_fetch_assoc($run)){
+            $data[]=$d;
+        }
+        return $data;
+    }
+
+    function getStudentCultureByAdmin($db,$uemail){
+        $query="SELECT SUM(totalTime) as totalTime FROM csrtimesheet WHERE emailOfStd='$uemail' AND csrPr='Culture'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data['totalTime'];
+    }
+    
+    function getStudentResponsibilityByAdmin($db,$uemail){
+        $query="SELECT SUM(totalTime) as totalTime FROM csrtimesheet WHERE emailOfStd='$uemail' AND csrPr='Responsibility'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data['totalTime'];
+    }
+
+    function getStudentSportsByAdmin($db,$uemail){
+        $query="SELECT SUM(totalTime) as totalTime FROM csrtimesheet WHERE emailOfStd='$uemail' AND csrPr='Sports'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data['totalTime'];
+    }
 ?>

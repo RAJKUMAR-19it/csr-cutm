@@ -37,7 +37,7 @@ if(isset($_POST['addpost'])){
     else {
         ?>
             <script>
-            alert("welcome ");
+            alert("Please Insert Valid Time ");
 
             setTimeout(function () {    
                 window.location.href = '../adminlogin/generatereport.php'; 
