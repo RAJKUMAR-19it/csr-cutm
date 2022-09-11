@@ -137,17 +137,36 @@ else
 
         <ul class="sidebar-nav" id="sidebar-nav">
 
-            <li class="nav-item">
-                <a class="nav-link " href="student.php">
-                    <i class="bi bi-grid"></i>
-                    <span>Dashboard</span>
+        <li class="nav-item">
+            <a class="nav-link " href="student.php">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link " href="generatereport.php">
+                <i class="bi bi-journal-text"></i>
+                <span>Add Activity</span>
+            </a>
+        </li>
+
+           <li class="nav-item">
+                <a class="nav-link " href="studentresult.php">
+                    <i class="bi bi-clipboard-check"></i>
+                    <span>CSR Result</span>
                 </a>
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link " href="generatereport.php">
-                    <i class="bi bi-journal-text"></i>
-                    <span>Add Activity</span>
+           <li class="nav-item">
+                <a class="nav-link " href="prof.php">
+                    <i class="bi bi-person-fill"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+           <li class="nav-item">
+                <a class="nav-link " href="../includes/logout.php">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Log out</span>
                 </a>
             </li>
 

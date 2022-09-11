@@ -1,23 +1,18 @@
 <?php
-session_start();
 require('../includes/function.php');
+require('../includes/database.php');
 $uemail=$_SESSION['email'];
 $utype=$_SESSION['usertype'];
+
+$post_images=getImagesByPost($db,$uemail);
 
 
 $AddmissionYear=2021;
 
 
-
 if($_SESSION['email'] and $utype=="student")
 {
-  $conn =mysqli_connect('localhost','root','','cutm_csr');
-  $posts=getAllPostAdmin($conn);
-
-  $studentResultyr1=getStudentResultyr1($conn,$uemail,$AddmissionYear);
-  $studentResultyr2=getStudentResultyr2($conn,$uemail,$AddmissionYear+1);
-  $studentResultyr3=getStudentResultyr3($conn,$uemail,$AddmissionYear+2);
-  $studentResultyr4=getStudentResultyr4($conn,$uemail,$AddmissionYear+3);
+  $studentData=getAllStudentDetails($db,$uemail);
 }
 else
 {
@@ -34,7 +29,7 @@ else
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Print Result-csr</title>
+  <title>Profile</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -67,8 +62,8 @@ else
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="student.php" class="logo d-flex align-items-center">
-        <img src="../images/icon.png" alt="">
-        <span class="d-none d-lg-block">CSR CUTM</span>
+        <img src="../images/cutm.png" alt="">
+        <span class="d-none d-lg-block"> | CSR CUTM</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -91,7 +86,7 @@ else
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6><?=$uemail?></h6>
-              <span>Web Designer</span>
+              <span>student</span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -119,7 +114,7 @@ else
 
   <ul class="sidebar-nav" id="sidebar-nav">
 
-  <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link " href="student.php">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
@@ -153,6 +148,7 @@ else
             </li>
 
 
+
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -163,66 +159,30 @@ else
         <div class="container-xxl bd-gutter">
             <div class="col-md-8 mx-auto text-center">
             
-                <img src="../images/cutmimage.png" width="200" height="200" alt="Bootstrap" class="d-block mx-auto mb-3">
-                <h1 class="mb-3 fw-semibold">Centurion University of Technology and Management</h1>
-                <p class="lead mb-4">School of Applied Sciences, Bhubaneswar </p>
-                <p class="lead mb-4">Bhubaneswar Campus</p>
-                <p class="lead mb-4">Semester Grade Sheet</p>
-                <p class="lead mb-4"><b>Student Regd. No :</b> <?=$uemail?></p>
-                <p class="lead mb-4"><b>Student Name : </b><?=$studentResultyr2['Name']?></p>
+                <h1 class="mb-3 fw-bold">Profile</h1>
+                
             
             </div>
         </div>
     </div>
 
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-            <th scope="col">Year</th>
-            <th scope="col">First</th>
-            <th scope="col">Second</th>
-            <th scope="col">Third</th>
-            <th scope="col">Forth</th>
-            <th scope="col">Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th>Culture(in hrs)</th>
-                <td><?=$studentResultyr1['Culture']?></td>
-                <td><?=$studentResultyr2['Culture']?></td>
-                <td><?=$studentResultyr3['Culture']?></td>
-                <td><?=$studentResultyr4['Culture']?></td>
-                <td><?=$studentResultyr1['Culture'] + $studentResultyr2['Culture'] + $studentResultyr3['Culture'] + $studentResultyr4['Culture']?></td>
-            </tr>
-            <tr>
-                <th>Sports(in hrs)</th>
-                <td><?=$studentResultyr1['Sports']?></td>
-                <td><?=$studentResultyr2['Sports']?></td>
-                <td><?=$studentResultyr3['Sports']?></td>
-                <td><?=$studentResultyr4['Sports']?></td>
-                <td><?=$studentResultyr1['Sports'] + $studentResultyr2['Sports'] + $studentResultyr3['Sports'] + $studentResultyr4['Sports']?></td>
-            </tr>
-            <tr>
-                <th>Responsibility(in hrs)</th>
-                <td><?=$studentResultyr1['Responsibility']?></td>
-                <td><?=$studentResultyr2['Responsibility']?></td>
-                <td><?=$studentResultyr3['Responsibility']?></td>
-                <td><?=$studentResultyr4['Responsibility']?></td>
-                <td><?=$studentResultyr1['Responsibility'] + $studentResultyr2['Responsibility'] + $studentResultyr3['Responsibility'] + $studentResultyr4['Responsibility']?></td>
-            </tr>
-            <tr>
-                <th>Credit</th>
-                <td><?=$studentResultyr1['Culture'] + $studentResultyr1['Sports'] + $studentResultyr1['Responsibility']?></td>
-                <td><?=$studentResultyr2['Culture'] + $studentResultyr2['Sports'] + $studentResultyr2['Responsibility']?></td>
-                <td><?=$studentResultyr3['Culture'] + $studentResultyr3['Sports'] + $studentResultyr3['Responsibility']?></td>
-                <td><?=$studentResultyr4['Culture'] + $studentResultyr4['Sports'] + $studentResultyr4['Responsibility']?></td>
-                <td><?=$studentResultyr1['Culture'] + $studentResultyr1['Sports'] + $studentResultyr1['Responsibility']+ $studentResultyr2['Culture'] + $studentResultyr2['Sports'] + $studentResultyr2['Responsibility'] + $studentResultyr3['Culture'] + $studentResultyr3['Sports'] + $studentResultyr3['Responsibility'] + $studentResultyr4['Culture'] + $studentResultyr4['Sports'] + $studentResultyr4['Responsibility']?></td>
-            </tr>
-        </tbody>
-    </table>
-    <br><br><br>
-    <center><button class="btn btn-success btn-lg float-right" type="click" onclick="printDiv()">Print</button><center>
+<img src="../images/profileimg/<?=$post_images['profileimage'] ?>" alt="<?=$post_images ?>" width="170" height="170"ALIGN="right"HSPACE="30"VSPACE="30"style=border-radius:50%;/>
+  <br><b>Name:</b> <?=$studentData['name']?></br>
+  <br><b>Registration Number:</b> <?=$studentData['regd']?></br>
+  <br><b>School Name:</b> <?=$studentData['schoolname']?></br>
+  <br><b>Program:</b> <?=$studentData['program']?></br>
+  <br><b>Branch:</b> <?=$studentData['branch']?></br>
+  <br><b>Session:</b> <?=$studentData['admissionyear']?></br>
+  <br><b>Gender:</b> <?=$studentData['sex']?></br>
+  <br><b>Religion:</b> <?=$studentData['religion']?></br>
+  <br><b>Date of Birth:</b> <?=$studentData['dob']?></br>
+  <br><b>Blood group:</b> <?=$studentData['blood_group']?></br>
+  <br><b>Hobby:</b> <?=$studentData['hobby']?></br>
+  <br><b>Mail:</b> <?=$studentData['email']?></br>
+  <br><b>Present address:</b> <?=$studentData['present_address']?></br>
+  <br><b>Permanent address:</b> <?=$studentData['permanent_address']?></br>
+   <br><br><br>
+    <center><button class="btn btn-success btn-lg float-right" type="click" onclick="editprof()">Edit</button><center>
 
   </main><!-- End #main -->
     
@@ -230,10 +190,10 @@ else
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>CSR CUTM</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>CSR | CUTM</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
-      Designed by <a href="https://chinmayakumarbiswal.in/">Chinmaya Kumar Biswal</a>
+      Designed by <a href="https://cutm.ac.in/">Centurion University of Technology and Management</a>
     </div>
   </footer><!-- End Footer -->
 
@@ -256,16 +216,8 @@ else
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script>
-        function printDiv() {
-            var divContents = document.getElementById("main").innerHTML;
-            // var a = window.open('', '', 'height=500, width=500');
-            // a.document.write('<html>');
-            // a.document.write('<body > <h1>Div contents are <br>');
-            // a.document.write(divContents);
-            // a.document.write('</body></html>');
-            // a.document.close();
-            // a.print();
-            window.print();
+        function editprof() {
+          window.location.href = "./edit.php";
         }
     </script>
 
