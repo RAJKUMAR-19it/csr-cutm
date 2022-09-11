@@ -74,8 +74,8 @@ else
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="student.php" class="logo d-flex align-items-center">
-                <img src="../images/icon.png" alt="">
-                <span class="d-none d-lg-block">CSR CUTM</span>
+                <img src="../images/cutm.png" alt="">
+                <span class="d-none d-lg-block"> | CSR CUTM</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -98,7 +98,7 @@ else
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6><?=$uemail?></h6>
-                            <span>Web Designer</span>
+                            <span>Student</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -183,6 +183,31 @@ else
                 <div class="col-lg">
                     <div class="row">
 
+
+                        <!-- Customers Card -->
+                        <div class="col-xxl-4 col-xl-12">
+
+                            <div class="card info-card customers-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Culture</h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-people-fill"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6><?=$uCulture?> H</h6>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div><!-- End Customers Card -->
+
+
+
                         <!-- Sales Card -->
                         <div class="col-xxl-4 col-md-6">
                             <div class="card info-card sales-card">
@@ -192,7 +217,7 @@ else
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
+                                            <i class="bi bi-trophy-fill"></i>
                                         </div>
                                         <div class="ps-3">
                                             <h6><?=$uSports?> H</h6>
@@ -212,7 +237,7 @@ else
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
+                                            <i class="bi bi-hand-thumbs-up-fill"></i>
                                         </div>
                                         <div class="ps-3">
                                             <h6><?=$uResponsibility?> H</h6>
@@ -223,27 +248,7 @@ else
                             </div>
                         </div><!-- End Revenue Card -->
 
-                        <!-- Customers Card -->
-                        <div class="col-xxl-4 col-xl-12">
-
-                            <div class="card info-card customers-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Culture</h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6><?=$uCulture?> H</h6>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div><!-- End Customers Card -->
+                        
 
                         <!-- Reports -->
 
@@ -325,13 +330,13 @@ else
 
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
-        <div class="copyright">
-            &copy; Copyright <strong><span>CSR CUTM</span></strong>. All Rights Reserved
-        </div>
-        <div class="credits">
-            Designed by <a href="https://chinmayakumarbiswal.in/">Chinmaya Kumar Biswal</a>
-        </div>
-    </footer><!-- End Footer -->
+    <div class="copyright">
+      &copy; Copyright <strong><span>CSR | CUTM</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      Designed by <a href="https://cutm.ac.in/">Centurion University of Technology and Management</a>
+    </div>
+  </footer><!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>

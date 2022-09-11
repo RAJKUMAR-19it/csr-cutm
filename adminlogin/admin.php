@@ -57,8 +57,8 @@ else
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="admin.php" class="logo d-flex align-items-center">
-        <img src="../images/icon.png" alt="">
-        <span class="d-none d-lg-block">CSR CUTM</span>
+        <img src="../images/cutm.png" alt="">
+        <span class="d-none d-lg-block"> | CSR CUTM</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -81,7 +81,7 @@ else
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6><?=$uemail?></h6>
-              <span>Web Designer</span>
+              <span>Admin</span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -205,7 +205,7 @@ else
                                 <div class="col-lg-4">
                                     <div class="card mb-4">
                                         <div class="card-body text-center">
-                                            <img src="https://chinmayakumarbiswal.in/chi.jpg" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                                            <img src="../images/profileimg/<?=$studentData['profileimage'] ?>" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
                                             <h5 class="my-3"><?=$post['NameOfStd']?></h5>
                                             
                                         </div>
@@ -298,10 +298,10 @@ else
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>CSR CUTM</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>CSR | CUTM</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
-      Designed by <a href="https://chinmayakumarbiswal.in/">Chinmaya Kumar Biswal</a>
+      Designed by <a href="https://cutm.ac.in/">Centurion University of Technology and Management</a>
     </div>
   </footer><!-- End Footer -->
 

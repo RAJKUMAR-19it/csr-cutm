@@ -67,8 +67,8 @@ else
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="student.php" class="logo d-flex align-items-center">
-        <img src="../images/icon.png" alt="">
-        <span class="d-none d-lg-block">CSR CUTM</span>
+      <img src="../images/cutm.png" alt="">
+      <span class="d-none d-lg-block"> | CSR CUTM</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -91,7 +91,7 @@ else
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6><?=$uemail?></h6>
-              <span>Web Designer</span>
+              <span>Student</span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -163,7 +163,7 @@ else
         <div class="container-xxl bd-gutter">
             <div class="col-md-8 mx-auto text-center">
             
-                <img src="../images/cutmimage.png" width="200" height="200" alt="Bootstrap" class="d-block mx-auto mb-3">
+                <img src="../images/cutmimage.png" width="130" height="200" alt="Bootstrap" class="d-block mx-auto mb-3">
                 <h1 class="mb-3 fw-semibold">Centurion University of Technology and Management</h1>
                 <p class="lead mb-4">School of Applied Sciences, Bhubaneswar </p>
                 <p class="lead mb-4">Bhubaneswar Campus</p>
@@ -221,6 +221,46 @@ else
             </tr>
         </tbody>
     </table>
+    <?php
+    $score="";
+      $totalCradit=$studentResultyr1['Culture'] + $studentResultyr1['Sports'] + $studentResultyr1['Responsibility']+ $studentResultyr2['Culture'] + $studentResultyr2['Sports'] + $studentResultyr2['Responsibility'] + $studentResultyr3['Culture'] + $studentResultyr3['Sports'] + $studentResultyr3['Responsibility'] + $studentResultyr4['Culture'] + $studentResultyr4['Sports'] + $studentResultyr4['Responsibility'];
+      $avrageCradit=$totalCradit/4;
+      if ($avrageCradit >=91 ) {
+        $score="O";
+      }
+      elseif ($avrageCradit >=76 &&  $avrageCradit <=90) {
+        $score="E";
+      }
+      elseif ($avrageCradit >=61 &&  $avrageCradit <=75) {
+        $score="E";
+      }
+      elseif ($avrageCradit >=46 &&  $avrageCradit <=60) {
+        $score="E";
+      }
+      elseif ($avrageCradit >=30 &&  $avrageCradit <=45) {
+        $score="E";
+      }
+      else {
+        $score="F";
+      }
+    ?>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Total Credit</th>
+          <th scope="col">Avrage Credit</th>
+          <th scope="col">Final Grade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><?=$totalCradit?></td>
+          <td><?=$avrageCradit?></td>
+          <td><?=$score?></td>
+        </tr>
+        
+      </tbody>
+    </table>
     <br><br><br>
     <center><button class="btn btn-success btn-lg float-right" type="click" onclick="printDiv()">Print</button><center>
 
@@ -230,10 +270,10 @@ else
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>CSR CUTM</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>CSR | CUTM</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
-      Designed by <a href="https://chinmayakumarbiswal.in/">Chinmaya Kumar Biswal</a>
+      Designed by <a href="https://cutm.ac.in/">Centurion University of Technology and Management</a>
     </div>
   </footer><!-- End Footer -->
 

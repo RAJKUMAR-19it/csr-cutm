@@ -179,6 +179,7 @@ else
   <br><b>Blood group:</b> <?=$studentData['blood_group']?></br>
   <br><b>Hobby:</b> <?=$studentData['hobby']?></br>
   <br><b>Mail:</b> <?=$studentData['email']?></br>
+  <br><b>Mobile:</b> <?=$studentData['mobile']?></br>
   <br><b>Present address:</b> <?=$studentData['present_address']?></br>
   <br><b>Permanent address:</b> <?=$studentData['permanent_address']?></br>
    <br><br><br>
