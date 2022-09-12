@@ -1,6 +1,6 @@
 <?php
-session_start();
 require('../includes/function.php');
+require('../includes/database.php');
 $uemail=$_SESSION['email'];
 $utype=$_SESSION['usertype'];
 
@@ -11,13 +11,13 @@ $AddmissionYear=2021;
 
 if($_SESSION['email'] and $utype=="student")
 {
-  $conn =mysqli_connect('localhost','root','','cutm_csr');
-  $posts=getAllPostAdmin($conn);
+  
+  $posts=getAllPostAdmin($db);
 
-  $studentResultyr1=getStudentResultyr1($conn,$uemail,$AddmissionYear);
-  $studentResultyr2=getStudentResultyr2($conn,$uemail,$AddmissionYear+1);
-  $studentResultyr3=getStudentResultyr3($conn,$uemail,$AddmissionYear+2);
-  $studentResultyr4=getStudentResultyr4($conn,$uemail,$AddmissionYear+3);
+  $studentResultyr1=getStudentResultyr1($db,$uemail,$AddmissionYear);
+  $studentResultyr2=getStudentResultyr2($db,$uemail,$AddmissionYear+1);
+  $studentResultyr3=getStudentResultyr3($db,$uemail,$AddmissionYear+2);
+  $studentResultyr4=getStudentResultyr4($db,$uemail,$AddmissionYear+3);
 }
 else
 {

@@ -1,18 +1,17 @@
 <?php
-session_start();
 require('../includes/function.php');
+require('../includes/database.php');
 $uemail=$_SESSION['email'];
 $utype=$_SESSION['usertype'];
 
 // this is- get total csr Activity
-$conn =mysqli_connect('localhost','root','','cutm_csr');
-$uSports=getStudentSports($conn,$uemail);
+$uSports=getStudentSports($db,$uemail);
 echo $uSports;
 
-$uResponsibility=getStudentResponsibility($conn,$uemail);
+$uResponsibility=getStudentResponsibility($db,$uemail);
 echo $uSports;
 
-$uCulture=getStudentCulture($conn,$uemail);
+$uCulture=getStudentCulture($db,$uemail);
 echo $uSports;
 
 
@@ -290,8 +289,8 @@ else
                                 </thead>
                                 <tbody>
                                     <?php
-                    $conn =mysqli_connect('localhost','root','','cutm_csr');
-                    $posts=getAllPost($conn,$uemail);
+                    
+                    $posts=getAllPost($db,$uemail);
                     $count=1;
                     foreach($posts as $post){
                     ?>

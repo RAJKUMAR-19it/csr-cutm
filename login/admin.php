@@ -118,11 +118,7 @@
 
   </div>
   </div>
-     <!-- FOOTER -->
-     <footer style="height:120%;">
-			<p class="pull-right"><a href="#">Back to top</a></p>
-			<p>@ Designed by Kiran, Sagar, Chandan, Abhishek</p>
-		  </footer>
+     
 </div>
     </div><!-- /.container -->
 

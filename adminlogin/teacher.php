@@ -1,6 +1,6 @@
 <?php
-session_start();
 require('../includes/function.php');
+require('../includes/database.php');
 $uemail=$_SESSION['email'];
 $utype=$_SESSION['usertype'];
 if($_SESSION['email'] and $utype=="teacher")
@@ -160,8 +160,7 @@ else
                 </thead>
                 <tbody>
                   <?php
-                    $conn =mysqli_connect('localhost','root','','cutm_csr');
-                    $posts=getAllPostTeacher($conn);
+                    $posts=getAllPostTeacher($db);
                     $count=1;
                     foreach($posts as $post){
                     ?>

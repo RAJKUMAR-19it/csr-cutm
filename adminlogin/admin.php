@@ -1,6 +1,6 @@
 <?php
-session_start();
 require('../includes/function.php');
+require('../includes/database.php');
 $uemail=$_SESSION['email'];
 $utype=$_SESSION['usertype'];
 if($_SESSION['email'] and $utype=="admin")
@@ -154,8 +154,7 @@ else
                 </thead>
                 <tbody>
                   <?php
-                    $conn =mysqli_connect('localhost','root','','cutm_csr');
-                    $posts=getAllPostAdmin($conn);
+                    $posts=getAllPostAdmin($db);
                     $count=1;
                     foreach($posts as $post){
                       if ($post['totalTime'] >= 10) {
@@ -180,7 +179,7 @@ else
                         $gradeIs="F";
                       }
 
-                      $studentData=getAllStudentDetails($conn,$post['emailOfStd']);
+                      $studentData=getAllStudentDetails($db,$post['emailOfStd']);
                     ?>
                       <tr>
                         <th scope="row"><?=$count?></th>

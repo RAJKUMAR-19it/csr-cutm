@@ -117,11 +117,7 @@
 
   </div>
   </div>
-     <!-- FOOTER -->
-     <footer style="height:120%;">
-			<p class="pull-right"><a href="#">Back to top</a></p>
-			<p>@ Designed by Centurion University of Technology and Management</p>
-		  </footer>
+    
 </div>
     </div><!-- /.container -->
 

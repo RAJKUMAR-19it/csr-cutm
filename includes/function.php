@@ -1,6 +1,6 @@
 <?php
     function getAllYear($db){
-        $query="SELECT * FROM Year";
+        $query="SELECT * FROM year";
         $run=mysqli_query($db,$query);
         $data=array();
         while($d=mysqli_fetch_assoc($run)){
