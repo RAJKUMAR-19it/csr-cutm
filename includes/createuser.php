@@ -109,4 +109,79 @@
         }
 	}
 
+
+	if(isset($_POST['editadminprofile'])){
+		$name=mysqli_real_escape_string($db,$_POST['name']);
+        $email=mysqli_real_escape_string($db,$_POST['email']);
+		$phone=mysqli_real_escape_string($db,$_POST['mob']);
+
+		$image_name=$_FILES['imageupload']['name'];
+        $image_tmp=$_FILES['imageupload']['tmp_name'];
+
+
+
+		echo $name."<br><br>";
+		echo $email."<br><br>";
+		echo $phone."<br><br>";
+		echo $image_name."<br><br>";
+        echo $image_tmp."<br><br>";
+
+		if(move_uploaded_file($image_tmp,"../images/profileimg/$image_name")){
+            $query="UPDATE admin SET name='$name', email='$email', mobile='$phone', profileimage='$image_name'  WHERE email='$email'";
+            $run=mysqli_query($db,$query) or die(mysqli_error($db));
+            if ($run) {
+                header('location:../adminlogin/adminprof.php');
+				echo "inserted done";
+            }
+            else {
+                echo "inserted error";
+            }
+        }
+        else {
+            echo "File Size High";
+        }
+	}
+
+
+	if(isset($_POST['editteacherprofile'])){
+		$name=mysqli_real_escape_string($db,$_POST['name']);
+        $email=mysqli_real_escape_string($db,$_POST['email']);
+		$mobile=mysqli_real_escape_string($db,$_POST['mobile']);
+		$Degination1=mysqli_real_escape_string($db,$_POST['Degination']);
+		$Qualification=mysqli_real_escape_string($db,$_POST['Qualification']);
+		$SchoolName=mysqli_real_escape_string($db,$_POST['SchoolName']);
+		$Clubget=mysqli_real_escape_string($db,$_POST['Clubget']);
+		$Gender=mysqli_real_escape_string($db,$_POST['sex']);
+
+		$image_name=$_FILES['imageupload']['name'];
+        $image_tmp=$_FILES['imageupload']['tmp_name'];
+
+
+
+		echo $name."<br><br>";
+		echo $email."<br><br>";
+		echo $mobile."<br><br>";
+		echo $Degination1."<br><br>";
+		echo $Qualification."<br><br>";
+		echo $SchoolName."<br><br>";
+		echo $Clubget."<br><br>";
+		echo $Gender."<br><br>";
+		echo $image_name;
+
+		if(move_uploaded_file($image_tmp,"../images/profileimg/$image_name")){
+            $query="UPDATE teacher SET name='$name', mobile='$mobile', Degination='$Degination1', Qualification='$Qualification', SchoolName='$SchoolName', Clubget='$Clubget', Gender='$Gender', profileimage='$image_name'  WHERE email='$email'";
+            $run=mysqli_query($db,$query) or die(mysqli_error($db));
+            if ($run) {
+                header('location:../adminlogin/facultyprof.php');
+				echo "inserted done";
+            }
+            else {
+                echo "inserted error";
+            }
+        }
+        else {
+            echo "File Size High";
+        }
+	}
+
 ?>

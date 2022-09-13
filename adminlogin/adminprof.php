@@ -3,8 +3,12 @@ require('../includes/function.php');
 require('../includes/database.php');
 $uemail=$_SESSION['email'];
 $utype=$_SESSION['usertype'];
-if($_SESSION['email'] and $utype=="teacher")
+
+
+
+if($_SESSION['email'] and $utype=="admin")
 {
+  $adminData=getAllAdminDetails($db,$uemail);
   ?>
     <!-- <script>
       alert("welcome ");
@@ -17,6 +21,7 @@ else
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +29,7 @@ else
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard</title>
+  <title>Profile</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -56,9 +61,9 @@ else
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="teacher.php" class="logo d-flex align-items-center">
-      <img src="../images/cutm.png" alt="">
-      <span class="d-none d-lg-block"> | CSR CUTM</span>
+      <a href="student.php" class="logo d-flex align-items-center">
+        <img src="../images/cutm.png" alt="">
+        <span class="d-none d-lg-block"> | CSR CUTM</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -81,7 +86,7 @@ else
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6><?=$uemail?></h6>
-              <span>Teacher</span>
+              <span>student</span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -109,111 +114,60 @@ else
 
   <ul class="sidebar-nav" id="sidebar-nav">
 
-<li class="nav-item">
-      <a class="nav-link " href="teacher.php">
-        <i class="bi bi-grid"></i>
-        <span>Dashboard</span>
-      </a>
-    </li>
-        <li class="nav-item">
-              <a class="nav-link " href="facultyprof.php">
-                  <i class="bi bi-person-fill"></i>
-                  <span>Profile</span>
-              </a>
-          </li>
-         <li class="nav-item">
-              <a class="nav-link " href="../includes/logout.php">
-                  <i class="bi bi-box-arrow-right"></i>
-                  <span>Log out</span>
-              </a>
-          </li>
+  <li class="nav-item">
+        <a class="nav-link " href="admin.php">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+            <a class="nav-link " href="addfaculty.php">
+                <i class="bi bi-journal-text"></i>
+                <span>Add Faculty In-charge</span>
+            </a>
+        </li>
+
+           <li class="nav-item">
+                <a class="nav-link " href="adminprof.php">
+                    <i class="bi bi-person-fill"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+           <li class="nav-item">
+                <a class="nav-link " href="../includes/logout.php">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Log out</span>
+                </a>
+            </li>
 
 
 
-  </ul>
+    </ul>
 
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 
-    <div class="pagetitle">
-      <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="teacher.php">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Post</h5>
-              <!-- Table with stripped rows -->
-              <table class="table datatable">
-                <thead>
-                  <tr>
-                    <th>Sl</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col-8">Year of Program</th>
-                    <th scope="col">Csr program</th>
-                    <th scope="col">Club</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">From Time</th>
-                    <th scope="col">End Time</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                    $posts=getAllPostTeacher($db);
-                    $count=1;
-                    foreach($posts as $post){
-                    ?>
-                      <tr>
-                        <th scope="row"><?=$count?></th>
-                        <td><?=$post['NameOfStd']?></td>
-                        <td><?=$post['emailOfStd']?></td>
-                        <td><?=$post['yearOfPr']?></td>
-                        <td><?=$post['csrPr']?></td>
-                        <td><?=$post['club']?></td>
-                        <td><?=$post['date']?></td>
-                        <td><?=$post['fromTime']?></td>
-                        <td><?=$post['endTime']?></td>
-                        <td><?=$post['totalTime']?></td>
-                        <td><?=$post['status']?></td>
-                        <td>
-                          <a href="../includes/status.php?id=<?=$post['id']?>" class="btn btn-danger">
-                            Aprove <i class="bi bi-exclamation"></i>
-                          </a>
-                        </td>
-                      </tr>
-                    <?php
-                    $count++;
-                  }
-                  ?>
-                  
-                  
-                  
-                </tbody>
-              </table>
-              <!-- End Table with stripped rows -->
-
+    <div class="bd-masthead mb-3" id="content">
+        <div class="container-xxl bd-gutter">
+            <div class="col-md-8 mx-auto text-center">
+            
+                <h1 class="mb-3 fw-bold">Profile</h1>
+                
+            
             </div>
-          </div>
-
         </div>
-      </div>
-    </section>
+    </div>
+
+<img src="../images/profileimg/<?=$adminData['profileimage'] ?>" alt="<?=$adminData ?>" width="170" height="170"ALIGN="right"HSPACE="30"VSPACE="30"style=border-radius:50%;/>
+  <br><b>Name:</b> <?=$adminData['name']?></br>
+  <br><b>Mail:</b> <?=$adminData['email']?></br>
+  <br><b>Mobile:</b> <?=$adminData['mobile']?></br>
+   <br><br><br>
+    <center><button class="btn btn-success btn-lg float-right" type="click" onclick="editprof()">Edit</button><center>
 
   </main><!-- End #main -->
+    
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
@@ -239,6 +193,15 @@ else
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script>
+        function editprof() {
+          window.location.href = "./adminprofedit.php";
+        }
+    </script>
 
 </body>
 

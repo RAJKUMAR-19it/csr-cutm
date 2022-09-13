@@ -74,6 +74,20 @@
         return $data;
     }
 
+    function getAllAdminDetails($db,$uemail){
+        $query="SELECT * FROM admin WHERE email='$uemail' ORDER BY id DESC";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data;
+    }
+
+    function getTeacherDetails($db,$uemail){
+        $query="SELECT * FROM teacher WHERE email='$uemail' ORDER BY id DESC";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data;
+    }
+
     function getAllPostByAdmin($db,$uemail){
         $year = date("Y"); 
 
