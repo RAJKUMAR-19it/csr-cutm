@@ -1,0 +1,25 @@
+
+/*Copyright*/
+.footer-v1 .copyright {
+	background: #222;
+	border-top: none;
+	padding: 10px 0 5px;
+}
+
+.footer-v1 .copyright p {
+	color: #eee;
+	margin-top: 14px;
+}
+
+.footer-v1 .copyright a {
+	margin: 0 2px;
+}
+
+
+
+@media (max-width: 991px) {
+	.footer-v1 .copyright,
+	.footer-v1 .footer-socials {
+		text-align: left;
+	}
+}

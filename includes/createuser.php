@@ -152,6 +152,7 @@
 		$SchoolName=mysqli_real_escape_string($db,$_POST['SchoolName']);
 		$Clubget=mysqli_real_escape_string($db,$_POST['Clubget']);
 		$Gender=mysqli_real_escape_string($db,$_POST['sex']);
+		$password=mysqli_real_escape_string($db,$_POST['password']);
 
 		$image_name=$_FILES['imageupload']['name'];
         $image_tmp=$_FILES['imageupload']['tmp_name'];
@@ -169,7 +170,7 @@
 		echo $image_name;
 
 		if(move_uploaded_file($image_tmp,"../images/profileimg/$image_name")){
-            $query="UPDATE teacher SET name='$name', mobile='$mobile', Degination='$Degination1', Qualification='$Qualification', SchoolName='$SchoolName', Clubget='$Clubget', Gender='$Gender', profileimage='$image_name'  WHERE email='$email'";
+            $query="UPDATE teacher SET name='$name', mobile='$mobile', Degination='$Degination1', Qualification='$Qualification', SchoolName='$SchoolName', Clubget='$Clubget', Gender='$Gender', profileimage='$image_name', password='$password'  WHERE email='$email'";
             $run=mysqli_query($db,$query) or die(mysqli_error($db));
             if ($run) {
                 header('location:../adminlogin/facultyprof.php');
@@ -183,5 +184,49 @@
             echo "File Size High";
         }
 	}
+
+
+	if(isset($_POST['addTeacher'])){
+		$name=mysqli_real_escape_string($db,$_POST['name']);
+		$facultyid=mysqli_real_escape_string($db,$_POST['facultyid']);
+        $email=mysqli_real_escape_string($db,$_POST['email']);
+		$mobile=mysqli_real_escape_string($db,$_POST['mob']);
+		$Degination1=mysqli_real_escape_string($db,$_POST['Degination']);
+		$Qualification=mysqli_real_escape_string($db,$_POST['Qualification']);
+		$SchoolName=mysqli_real_escape_string($db,$_POST['school']);
+		$Campus=mysqli_real_escape_string($db,$_POST['Campus']);
+		$Gender=mysqli_real_escape_string($db,$_POST['sex']);
+		// $program=mysqli_real_escape_string($db,$_POST['program']);
+		$clubname=mysqli_real_escape_string($db,$_POST['clubname']);
+		// $password=mysqli_real_escape_string($db,$_POST['password']);
+		$password="situ";
+
+
+
+		echo $name."<br><br>";
+		echo $facultyid."<br><br>";
+		echo $email."<br><br>";
+		echo $mobile."<br><br>";
+		echo $Degination1."<br><br>";
+		echo $Qualification."<br><br>";
+		echo $SchoolName."<br><br>";
+		echo $Campus."<br><br>";
+		echo $Gender."<br><br>";
+		echo $program."<br><br>";
+		echo $clubname."<br><br>";
+		
+		
+
+        $query="INSERT INTO teacher (name,email,mobile,empid,Degination,campus,Qualification,SchoolName,Clubget,Gender,password) VALUES('$name','$email','$mobile','$facultyid','$Degination1','$Campus','$Qualification','$SchoolName','$clubname','$Gender','$password')";
+        $run=mysqli_query($db,$query) or die(mysqli_error($db));
+        if ($run) {
+            header('location:https://chinmayakumarbiswal.in/test/cutmCsrMail?name='.$name.'&email='.$email);
+        }
+        else {
+            echo "inserted error";
+        }
+    }
+        
+	
 
 ?>

@@ -196,7 +196,7 @@ else
                                             <i class="bi bi-people-fill"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6><?=$uCulture?> H</h6>
+                                            <h6><?=$uCulture?> Hrs</h6>
                                         </div>
                                     </div>
 
@@ -219,7 +219,7 @@ else
                                             <i class="bi bi-trophy-fill"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6><?=$uSports?> H</h6>
+                                            <h6><?=$uSports?> Hrs</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -239,7 +239,7 @@ else
                                             <i class="bi bi-hand-thumbs-up-fill"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6><?=$uResponsibility?> H</h6>
+                                            <h6><?=$uResponsibility?> Hrs</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -277,7 +277,7 @@ else
                                         <th>Sl</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col-8">Year of Program</th>
+                                        <th scope="col-8">Acadamic Year</th>
                                         <th scope="col">Csr program</th>
                                         <th scope="col">Club</th>
                                         <th scope="col">Date</th>

@@ -122,6 +122,12 @@ else
           <span>Dashboard</span>
         </a>
       </li>
+      <li class="nav-item">
+                <a class="nav-link " href="teacherSessonWise.php">
+                    <i class="bi bi-grid"></i>
+                    <span>Sesson Wise</span>
+                </a>
+            </li>
           <li class="nav-item">
                 <a class="nav-link " href="facultyprof.php">
                     <i class="bi bi-person-fill"></i>
@@ -160,12 +166,11 @@ else
   <br><b>Club Name:</b> <?=$teacherData['Clubget']?></br>
   <br><b>Degination:</b> <?=$teacherData['Degination']?></br>
   <br><b>Qualification</b> <?=$teacherData['Qualification']?></br>
+  <br><b>Club Assigned : </b> <?=$teacherData['Clubget']?></br>
   <br><b>Mail:</b> <?=$teacherData['email']?></br>
   <br><b>Mobile:</b> <?=$teacherData['mobile']?></br>
   <br><b>School Name:</b> <?=$teacherData['SchoolName']?></br>
   <br><b>Gender:</b> <?=$teacherData['Gender']?></br>
-  <br><b>Date of Birth:</b> <?=$teacherData['dob']?></br>
-  <br><b>Blood group:</b> <?=$teacherData['Blood']?></br>
    <br><br><br>
     <center><button class="btn btn-success btn-lg float-right" type="click" onclick="editprof()">Edit</button><center>
 

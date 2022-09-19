@@ -5,6 +5,7 @@ $uemail=$_SESSION['email'];
 $utype=$_SESSION['usertype'];
 if($_SESSION['email'] and $utype=="teacher")
 {
+  $teacherData=getTeacherDetails($db,$uemail);
   ?>
     <!-- <script>
       alert("welcome ");
@@ -115,6 +116,12 @@ else
         <span>Dashboard</span>
       </a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link " href="teacherSessonWise.php">
+        <i class="bi bi-grid"></i>
+        <span>Sesson Wise</span>
+      </a>
+    </li>
         <li class="nav-item">
               <a class="nav-link " href="facultyprof.php">
                   <i class="bi bi-person-fill"></i>
@@ -173,7 +180,9 @@ else
                 </thead>
                 <tbody>
                   <?php
-                    $posts=getAllPostTeacher($db);
+                  echo $teacherData['campus'];
+                  echo $teacherData['Clubget'];
+                    $posts=getAllPostTeacher($db,$teacherData['campus'],$teacherData['Clubget']);
                     $count=1;
                     foreach($posts as $post){
                     ?>

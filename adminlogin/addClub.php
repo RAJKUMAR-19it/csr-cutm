@@ -3,24 +3,40 @@ require('../includes/function.php');
 require('../includes/database.php');
 $uemail=$_SESSION['email'];
 $utype=$_SESSION['usertype'];
-
-$post_images=getImagesByPost($db,$uemail);
-
-
-$AddmissionYear=2021;
-
-
 if($_SESSION['email'] and $utype=="admin")
 {
-    $adminData=getAllAdminDetails($db,$uemail);
+  $adminData=getAllAdminDetails($db,$uemail);
+  ?>
+<!-- <script>
+      alert("welcome ");
+    </script> -->
+<?php
 }
 else
 {
-  echo "working";
   header('location:../includes/logout.php');
 }
-?>
 
+
+if(isset($_POST['addClub'])){
+    $program=mysqli_real_escape_string($db,$_POST['program']);
+    $club=mysqli_real_escape_string($db,$_POST['club']);
+
+    $query="INSERT INTO csrpr (csrPr,club) VALUES('$program','$club')";
+    $run=mysqli_query($db,$query) or die(mysqli_error($db));
+    if ($run) {
+        header('location:addClub.php');
+    }
+    else {
+        ?>
+        <script>
+            alert("Sorry dueto some issue your data not update ! ");
+            </script>
+        <?php
+    }
+
+  }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +45,7 @@ else
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Edit Profile</title>
+    <title>Dashboard</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -63,7 +79,7 @@ else
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="student.php" class="logo d-flex align-items-center">
+            <a href="admin.php" class="logo d-flex align-items-center">
                 <img src="../images/cutm.png" alt="">
                 <span class="d-none d-lg-block"> | CSR CUTM</span>
             </a>
@@ -88,7 +104,7 @@ else
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6><?=$uemail?></h6>
-                            <span>student</span>
+                            <span>Admin</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -114,7 +130,7 @@ else
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
+        <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
                 <a class="nav-link " href="admin.php">
@@ -168,137 +184,101 @@ else
 
     <main id="main" class="main">
 
-        <div class="bd-masthead mb-3" id="content">
-            <div class="container-xxl bd-gutter">
-                <div class="col-md-8 mx-auto text-center">
+        <div class="pagetitle">
+            <h1>Dashboard</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="admin.php">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
 
-                    <h1 class="mb-3 fw-bold">Assigning Faculty</h1>
+        <section class="section">
+          <form action="" method="post">
+            <div class="row">
+                <div class="col-md-4 bg-light text-right">
+                    <label>Program</label>
+                    <select class="form-select" aria-label="Default select example" name="program" >
+                        <option value="Culture">Culture</option>  
+                        <option value="sports">sports</option>  
+                        <option value="Responsibility">Responsibility</option>  
+                    </select>
+                </div>
+                <div class="col-md-4 bg-light text-right">
+                    <label>Club</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="club" value="" required>
+                    </div>
+                </div>
+                <div class="col-md-4 bg-light text-right"><br>
+                    <button type="submit" class="btn btn-primary btn-lg float-right" name="addClub">Submit</button>
+                </div>
+            
+            </div>
+          </form>
 
+                <div class="col-lg-12">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Post</h5>
+                            <!-- Table with stripped rows -->
+                            <table class="table datatable">
+                                <thead>
+                                    <tr>
+                                        <th>Sl</th>
+                                        <th scope="col">Program </th>
+                                        <th scope="col">Club </th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        $posts=getAllProgramAdmin($db);
+                                        $count=1;
+                                        foreach($posts as $post){
+                                            $studentData=getAllProgramAdmin($db);
+                                    ?>
+                                    <tr>
+                                        <th scope="row"><?=$count?></th>
+                                        <td><?=$post['csrPr']?></td>
+                                        <td><?=$post['club']?></td>
+                                    </tr>
+
+
+
+
+
+                                    <?php
+                    $count++;
+                  }
+                  ?>
+
+
+
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+
+                        </div>
+                    </div>
 
                 </div>
             </div>
-        </div>
+        </section>
 
-       
-                <section class="section dashboard">
-
-
-                    <form action="../includes/createuser.php" method="post" enctype="multipart/form-data">
-
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Name of the faculty : </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="name" value="" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Faculty ID: </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="facultyid"  value="" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Mobile No.:</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="mob" value="" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Mail:</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="email" value="" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Degination : </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="Degination"  value="" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Campus: </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="Campus"  value="<?=$adminData['campus']?>" readonly>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Qualification: </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="Qualification"  value="" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">School: </label>
-                            <div class="col-sm-10">
-                              <select class="form-select" aria-label="Default select example" name="school">
-                                <option value="School of Engineering and Technology">School of Engineering and Technology</option>
-                                <option value="School of Management">School of Management</option>
-                                <option value="M.S. Swaminathan School of Agriculture">M.S. Swaminathan School of Agriculture</option>
-                                <option value="School of Media and Communication">School of Media and Communication</option>
-                                <option value="School Of Paramedics & Allied Health Science">School Of Paramedics & Allied Health Science</option>
-                                <option value="School of Applied Sciences">School of Applied Sciences</option>
-                                <option value="School of Forensic Sciences">School of Forensic Sciences</option>
-                                <option value="School Of Pharmacy">School Of Pharmacy</option>
-                                <option value="School of Agriculture and Bio-Engineering">School of Agriculture and Bio-Engineering</option>
-                                <option value="School of Fisheries">School of Fisheries</option>
-                                <option value="School Of Vocational Education and Training">School Of Vocational Education and Training</option>
-                                <option value="School of Maritime Studies">School of Maritime Studies</option>
-                              </select>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Gender:</label>
-                            <div class="col-sm-10">
-                              <select class="form-select" aria-label="Default select example" name="sex">
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="Transgender">Transgender</option>
-                              </select>
-                          </div>
-                        </div>
-                        <div class="col-lg">
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Select CSR program</label>
-                                <div class="col-sm-10">
-                                    <select class="form-select" aria-label="Default select example" name="program" id="program" onChange="getClub()">
-                                    <option value="">Loading</option>
-                                    
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg">
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Select CSR Club</label>
-                                <div class="col-sm-10">
-                                    <select class="form-select" aria-label="Default select example" name="clubname" id="club">
-                                    <option value="">Please Select Program</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Publish Post</label>
-                            <div class="col-sm-10">
-                                <button type="submit" class="btn btn-primary" name="addTeacher">Submit</button>
-                            </div>
-                        </div>
-                    </form>
-
-                </section>
     </main><!-- End #main -->
-
 
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>CSR | CUTM</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-      Designed by <a href="https://cutm.ac.in/">Centurion University of Technology and Management</a>
-    </div>
-  </footer><!-- End Footer -->
+        <div class="copyright">
+            &copy; Copyright <strong><span>CSR | CUTM</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+            Designed by <a href="https://cutm.ac.in/">Centurion University of Technology and Management</a>
+        </div>
+    </footer><!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
@@ -325,7 +305,8 @@ else
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         function getPr() {
             document.getElementById('program').disabled =true

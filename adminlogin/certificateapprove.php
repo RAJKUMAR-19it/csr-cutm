@@ -5,6 +5,7 @@ $uemail=$_SESSION['email'];
 $utype=$_SESSION['usertype'];
 if($_SESSION['email'] and $utype=="admin")
 {
+  $adminData=getAllAdminDetails($db,$uemail);
   ?>
 <!-- <script>
       alert("welcome ");
@@ -111,52 +112,53 @@ else
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-        <li class="nav-item">
-            <a class="nav-link " href="admin.php">
-                <i class="bi bi-grid"></i>
-                <span>Dashboard</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="certificateapprove.php">
-                <i class="bi bi-grid"></i>
-                <span>Certificate Approve</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="addfaculty.php">
-                <i class="bi bi-journal-text"></i>
-                <span>Add Faculty In-charge</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="addClub.php">
-                <i class="bi bi-journal-text"></i>
-                <span>Add Club</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="studentapproval.php">
-                <i class="bi bi-journal-text"></i>
-                <span>Student Approval</span>
-            </a>
-        </li>
+<li class="nav-item">
+    <a class="nav-link " href="admin.php">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link " href="certificateapprove.php">
+        <i class="bi bi-grid"></i>
+        <span>Certificate Approve</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link " href="addfaculty.php">
+        <i class="bi bi-journal-text"></i>
+        <span>Add Faculty In-charge</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link " href="addClub.php">
+        <i class="bi bi-journal-text"></i>
+        <span>Add Club</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link " href="studentapproval.php">
+        <i class="bi bi-journal-text"></i>
+        <span>Student Approval</span>
+    </a>
+</li>
 
-        <li class="nav-item">
-            <a class="nav-link " href="adminprof.php">
-                <i class="bi bi-person-fill"></i>
-                <span>Profile</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="../includes/logout.php">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Log out</span>
-            </a>
-        </li>
+<li class="nav-item">
+    <a class="nav-link " href="adminprof.php">
+        <i class="bi bi-person-fill"></i>
+        <span>Profile</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link " href="../includes/logout.php">
+        <i class="bi bi-box-arrow-right"></i>
+        <span>Log out</span>
+    </a>
+</li>
 
 
 
+</ul>
         </ul>
 
     </aside><!-- End Sidebar-->
@@ -174,7 +176,36 @@ else
         </div><!-- End Page Title -->
 
         <section class="section">
+          <form action="" method="post">
             <div class="row">
+
+            
+
+                <div class="col-md-8 bg-light text-right">
+                    <label>Select School</label>
+                    <select class="form-select" aria-label="Default select example" name="school">
+                      <option value="School of Engineering and Technology">School of Engineering and Technology</option>
+                      <option value="School of Management">School of Management</option>
+                      <option value="M.S. Swaminathan School of Agriculture">M.S. Swaminathan School of Agriculture</option>
+                      <option value="School of Media and Communication">School of Media and Communication</option>
+                      <option value="School Of Paramedics & Allied Health Science">School Of Paramedics & Allied Health Science</option>
+                      <option value="School of Applied Science">School of Applied Sciences</option>
+                      <option value="School of Forensic Science">School of Forensic Sciences</option>
+                      <option value="School Of Pharmacy">School Of Pharmacy</option>
+                      <option value="School of Agriculture and Bio-Engineering">School of Agriculture and Bio-Engineering</option>
+                      <option value="School of Fisheries">School of Fisheries</option>
+                      <option value="School Of Vocational Education and Training">School Of Vocational Education and Training</option>
+                      <option value="School of Maritime Studies">School of Maritime Studies</option>
+                    </select>
+                </div>
+                
+                <div class="col-md-4 bg-light text-right"><br>
+                    <button type="submit" class="btn btn-primary btn-lg float-right" name="getCertificateDetails">Submit</button>
+                </div>
+            
+            </div>
+          </form>
+
                 <div class="col-lg-12">
 
                     <div class="card">
@@ -194,33 +225,44 @@ else
                                 </thead>
                                 <tbody>
                                     <?php
-                    $posts=getAllPostAdmin($db);
-                    $count=1;
-                    foreach($posts as $post){
-                      if ($post['totalTime'] >= 10) {
-                        $gradeIs="o";
-                      }
-                      elseif ($post['totalTime'] >= 9) {
-                        $gradeIs="E";
-                      }
-                      elseif ($post['totalTime'] >= 8) {
-                        $gradeIs="A";
-                      }
-                      elseif ($post['totalTime'] >= 7) {
-                        $gradeIs="B";
-                      }
-                      elseif ($post['totalTime'] >= 6) {
-                        $gradeIs="C";
-                      }
-                      elseif ($post['totalTime'] >= 5) {
-                        $gradeIs="D";
-                      }
-                      else{
-                        $gradeIs="F";
-                      }
+                                      if(isset($_POST['getCertificateDetails'])){
+                                        $school=mysqli_real_escape_string($db,$_POST['school']);
+                                        $campus=$adminData['campus'];
+                                        // echo $school;
+                                        // echo $campus;
+                                        $posts=getAllPostAdminByClub($db,$school,$campus);
 
-                      $studentData=getAllStudentDetails($db,$post['emailOfStd']);
-                    ?>
+                                      }
+                                      else {
+                                        $posts=getAllPostAdmin($db);
+                                      }
+                                        
+                                        $count=1;
+                                        foreach($posts as $post){
+                                          if ($post['totalTime'] >= 10) {
+                                            $gradeIs="o";
+                                          }
+                                          elseif ($post['totalTime'] >= 9) {
+                                            $gradeIs="E";
+                                          }
+                                          elseif ($post['totalTime'] >= 8) {
+                                            $gradeIs="A";
+                                          }
+                                          elseif ($post['totalTime'] >= 7) {
+                                            $gradeIs="B";
+                                          }
+                                          elseif ($post['totalTime'] >= 6) {
+                                            $gradeIs="C";
+                                          }
+                                          elseif ($post['totalTime'] >= 5) {
+                                            $gradeIs="D";
+                                          }
+                                          else{
+                                            $gradeIs="F";
+                                          }
+
+                                          $studentData=getAllStudentDetails($db,$post['emailOfStd']);
+                                    ?>
                                     <tr>
                                         <th scope="row"><?=$count?></th>
                                         <td><?=$post['NameOfStd']?></td>
@@ -304,7 +346,15 @@ else
 
                                                         <div class="modal-footer">
 
-                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <form method="post" action="detailsview.php">
+                                                                <input class="form-control" type="hidden"
+                                                                    name="sendemailtoadmin"
+                                                                    value="<?=$studentData['email']?>">
+                                                                <button type="submit" class="btn btn-primary"
+                                                                    name="sendemail">Details View</button>
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Close</button>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -371,6 +421,40 @@ else
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function getPr() {
+            document.getElementById('program').disabled =true
+            axios.get("./api/pr.php").then((response)=>{
+                console.log(response);
+                let options='<option value="">Select one option</option>';
+                for(let each of response.data.data){
+                    options+=`<option value="${each}">${each}</option>`;
+                }
+                document.getElementById('program').innerHTML=options;
+                document.getElementById('program').disabled =false;
+            })
+        }
+        function getClub() {
+            let selection=document.getElementById('program').value;
+            if(!selection)return;
+            document.getElementById('club').disabled =true
+            document.getElementById('club').innerHTML='<option value="">Loading</option>';
+            axios.get("./api/club.php?scrPr="+selection).then((response)=>{
+                console.log(response);
+                let options='';
+                for(let each of response.data.data){
+                    options+=`<option value="${each}">${each}</option>`;
+                }
+                document.getElementById('club').innerHTML=options;
+                document.getElementById('club').disabled =false;
+            })
+        }
+        getPr();
+        
     </script>
 
 </body>

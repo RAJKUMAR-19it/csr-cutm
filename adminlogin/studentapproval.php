@@ -5,6 +5,7 @@ $uemail=$_SESSION['email'];
 $utype=$_SESSION['usertype'];
 if($_SESSION['email'] and $utype=="admin")
 {
+    $adminData=getAllAdminDetails($db,$uemail);
   ?>
 <!-- <script>
       alert("welcome ");
@@ -187,141 +188,46 @@ else
                                         <th>Sl</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Total Hour Worked</th>
-                                        <th scope="col">Grade</th>
-                                        <th scope="col">Details View</th>
+                                        <th scope="col">schoolname	</th>
+                                        <th scope="col">program</th>
+                                        <th scope="col">branch</th>
+                                        <th scope="col">campus</th>
+                                        <th scope="col">mobile</th>
+                                        <th scope="col">Profile</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                    $posts=getAllPostAdmin($db);
-                    $count=1;
-                    foreach($posts as $post){
-                      if ($post['totalTime'] >= 10) {
-                        $gradeIs="o";
-                      }
-                      elseif ($post['totalTime'] >= 9) {
-                        $gradeIs="E";
-                      }
-                      elseif ($post['totalTime'] >= 8) {
-                        $gradeIs="A";
-                      }
-                      elseif ($post['totalTime'] >= 7) {
-                        $gradeIs="B";
-                      }
-                      elseif ($post['totalTime'] >= 6) {
-                        $gradeIs="C";
-                      }
-                      elseif ($post['totalTime'] >= 5) {
-                        $gradeIs="D";
-                      }
-                      else{
-                        $gradeIs="F";
-                      }
-
-                      $studentData=getAllStudentDetails($db,$post['emailOfStd']);
-                    ?>
+                                        $campus=$adminData['campus'];
+                                        $posts=getAllStudentDetailsByAdmin($db,$campus);
+                                        $count=1;
+                                        foreach($posts as $post){
+                                        
+                                    ?>
                                     <tr>
                                         <th scope="row"><?=$count?></th>
-                                        <td><?=$post['NameOfStd']?></td>
-                                        <td><?=$post['emailOfStd']?></td>
-                                        <td><?=$post['totalTime']?></td>
-                                        <td><?=$gradeIs?></td>
+                                        <td><?=$post['name']?></td>
+                                        <td><?=$post['email']?></td>
+                                        <td><?=$post['schoolname']?></td>
+                                        <td><?=$post['program']?></td>
+                                        <td><?=$post['branch']?></td>
+                                        <td><?=$post['campus']?></td>
+                                        <td><?=$post['mobile']?></td>
+                                        <td><img src="../images/profileimg/<?=$post['profileimage']?>" height="30px"></td>
+                                        <td><?=$post['status']?></td>
                                         <td>
-                                            <a href="#" class="btn btn-dark" target="_blank" data-toggle="modal"
-                                                data-target=".<?=$post['id']?>">
-                                                Details
-                                            </a>
+                                        <a href="../includes/approvestudent.php?id=<?=$post['id']?>" class="btn btn-danger">
+                                            Aprove <i class="bi bi-exclamation"></i>
+                                        </a>
                                         </td>
                                     </tr>
 
-                                    <div class="modal fade <?=$post['id']?>" tabindex="-1" role="dialog"
-                                        aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-
-                                                <br>
-
-                                                <div class="row">
-                                                    <div class="col-lg-4">
-                                                        <div class="card mb-4">
-                                                            <div class="card-body text-center">
-                                                                <img src="../images/profileimg/<?=$studentData['profileimage'] ?>"
-                                                                    alt="avatar" class="rounded-circle img-fluid"
-                                                                    style="width: 150px;">
-                                                                <h5 class="my-3"><?=$post['NameOfStd']?></h5>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-8">
-                                                        <div class="card mb-4">
-                                                            <div class="card-body">
-                                                                <div class="row">
-                                                                    <div class="col-sm-3">
-                                                                        <p class="mb-0">Full Name</p>
-                                                                    </div>
-                                                                    <div class="col-sm-9">
-                                                                        <p class="text-muted mb-0">
-                                                                            <?=$studentData['name']?></p>
-                                                                    </div>
-                                                                </div>
-                                                                <hr>
-                                                                <div class="row">
-                                                                    <div class="col-sm-3">
-                                                                        <p class="mb-0">Email</p>
-                                                                    </div>
-                                                                    <div class="col-sm-9">
-                                                                        <p class="text-muted mb-0">
-                                                                            <?=$studentData['email']?></p>
-                                                                    </div>
-                                                                </div>
-                                                                <hr>
-                                                                <div class="row">
-                                                                    <div class="col-sm-3">
-                                                                        <p class="mb-0">Regd No</p>
-                                                                    </div>
-                                                                    <div class="col-sm-9">
-                                                                        <p class="text-muted mb-0">
-                                                                            <?=$studentData['regd']?></p>
-                                                                    </div>
-                                                                </div>
-                                                                <hr>
-                                                                <div class="row">
-                                                                    <div class="col-sm-3">
-                                                                        <p class="mb-0">Mobile</p>
-                                                                    </div>
-                                                                    <div class="col-sm-9">
-                                                                        <p class="text-muted mb-0">
-                                                                            <?=$studentData['mobile']?></p>
-                                                                    </div>
-                                                                </div>
-                                                                <hr>
-                                                            </div>
-
-                                                        </div>
-
-
-                                                        <div class="modal-footer">
-
-                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
-
-
                                     <?php
-                    $count++;
-                  }
-                  ?>
+                                        $count++;
+                                        }
+                                    ?>
 
 
 

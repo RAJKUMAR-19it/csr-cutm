@@ -51,12 +51,6 @@ else
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
 
-    <!-- =======================================================
-  * Template Name: NiceAdmin - v2.2.2
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -193,7 +187,9 @@ else
             <form action="../includes/addreport.php" method="post" enctype="multipart/form-data">
 
 
-              <input type="hidden" name="uname" value="<?=$uname?>">
+              <input type="hidden" name="uname" value="<?=$uname['name']?>">
+              <input type="hidden" name="campus" value="<?=$uname['campus']?>">
+              <input type="hidden" name="schoolname" value="<?=$uname['schoolname']?>">
               <input type="hidden" name="uemail" value="<?=$uemail?>">
 
                 <div class="col-lg">
@@ -204,10 +200,13 @@ else
                             <select class="form-select" aria-label="Default select example" name="year">
                                 <?php
                                   $year=getAllYear($db);
+                                  $thisyear=date("Y");
                                   foreach($year as $ct){
+                                    if ($ct['admissionyear'] == $thisyear) {
                                 ?>
-                                  <option value="<?=$ct['Year']?>"><?=$ct['Year']?></option>
+                                        <option value="<?=$ct['Year']?>"><?=$ct['Year']?></option>
                                 <?php
+                                }
                         }
                       ?>
                             </select>
@@ -217,24 +216,25 @@ else
                 </div>
 
                 <div class="col-lg">
-
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label">Select CSR program</label>
                         <div class="col-sm-10">
-                            <select class="form-select" aria-label="Default select example" name="program">
-                              <option value="Culture">Culture</option>
-                              <option value="Sports">Sports</option>
-                              <option value="Responsibility">Responsibility</option>
+                            <select class="form-select" aria-label="Default select example" name="program" id="program" onChange="getClub()">
+                              <option value="">Loading</option>
+                              
                             </select>
                         </div>
                     </div>
                 </div>
 
-
-                <div class="row mb-3">
-                    <label for="inputText" class="col-sm-2 col-form-label">Club Name</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name="clubname" required>
+                <div class="col-lg">
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Select CSR Club</label>
+                        <div class="col-sm-10">
+                            <select class="form-select" aria-label="Default select example" name="clubname" id="club">
+                            <option value="">Please Select Program</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -262,16 +262,41 @@ else
 
 
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Publish Post</label>
+                    <label class="col-sm-2 col-form-label"></label>
                     <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary" name="addpost">Submit</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#openForAdd">Submit</button>
+                        
                     </div>
                 </div>
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="openForAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Do You Want to Submit</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <i class="bi bi-send-check-fill"></i>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" name="addpost">Submit</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                
 
 
             </form>
 
         </section>
+        
 
     </main><!-- End #main -->
 
@@ -292,10 +317,46 @@ else
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/vendor/quill/quill.min.js"></script>
     <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
 
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function getPr() {
+            document.getElementById('program').disabled =true
+            axios.get("./api/pr.php").then((response)=>{
+                console.log(response);
+                let options='<option value="">Select one option</option>';
+                for(let each of response.data.data){
+                    options+=`<option value="${each}">${each}</option>`;
+                }
+                document.getElementById('program').innerHTML=options;
+                document.getElementById('program').disabled =false;
+            })
+        }
+        function getClub() {
+            let selection=document.getElementById('program').value;
+            if(!selection)return;
+            document.getElementById('club').disabled =true
+            document.getElementById('club').innerHTML='<option value="">Loading</option>';
+            axios.get("./api/club.php?scrPr="+selection).then((response)=>{
+                console.log(response);
+                let options='';
+                for(let each of response.data.data){
+                    options+=`<option value="${each}">${each}</option>`;
+                }
+                document.getElementById('club').innerHTML=options;
+                document.getElementById('club').disabled =false;
+            })
+        }
+        getPr();
+        
+    </script>
 
 </body>
 

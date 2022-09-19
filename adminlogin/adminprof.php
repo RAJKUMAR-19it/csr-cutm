@@ -114,31 +114,49 @@ else
 
   <ul class="sidebar-nav" id="sidebar-nav">
 
-  <li class="nav-item">
+    <li class="nav-item">
         <a class="nav-link " href="admin.php">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+            <i class="bi bi-grid"></i>
+            <span>Dashboard</span>
         </a>
-      </li>
-      <li class="nav-item">
-            <a class="nav-link " href="addfaculty.php">
-                <i class="bi bi-journal-text"></i>
-                <span>Add Faculty In-charge</span>
-            </a>
-        </li>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="certificateapprove.php">
+            <i class="bi bi-grid"></i>
+            <span>Certificate Approve</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="addfaculty.php">
+            <i class="bi bi-journal-text"></i>
+            <span>Add Faculty In-charge</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="addClub.php">
+            <i class="bi bi-journal-text"></i>
+            <span>Add Club</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="studentapproval.php">
+            <i class="bi bi-journal-text"></i>
+            <span>Student Approval</span>
+        </a>
+    </li>
 
-           <li class="nav-item">
-                <a class="nav-link " href="adminprof.php">
-                    <i class="bi bi-person-fill"></i>
-                    <span>Profile</span>
-                </a>
-            </li>
-           <li class="nav-item">
-                <a class="nav-link " href="../includes/logout.php">
-                    <i class="bi bi-box-arrow-right"></i>
-                    <span>Log out</span>
-                </a>
-            </li>
+    <li class="nav-item">
+        <a class="nav-link " href="adminprof.php">
+            <i class="bi bi-person-fill"></i>
+            <span>Profile</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="../includes/logout.php">
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Log out</span>
+        </a>
+    </li>
 
 
 

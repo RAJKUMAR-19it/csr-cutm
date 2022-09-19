@@ -2,6 +2,8 @@
 require('database.php');
 if(isset($_POST['addpost'])){
     $uname=mysqli_real_escape_string($db,$_POST['uname']);
+    $campus=mysqli_real_escape_string($db,$_POST['campus']);
+    $schoolname=mysqli_real_escape_string($db,$_POST['schoolname']);
     $uemail=mysqli_real_escape_string($db,$_POST['uemail']);
     $year=mysqli_real_escape_string($db,$_POST['year']);
     $program=mysqli_real_escape_string($db,$_POST['program']);
@@ -13,6 +15,8 @@ if(isset($_POST['addpost'])){
 
 
     echo $uname;echo "<br>";
+    echo $campus;echo "<br>";
+    echo $schoolname;echo "<br>";
     echo $uemail;echo "<br>";
     echo $year;echo "<br>";
     echo $program;echo "<br>";
@@ -26,7 +30,7 @@ if(isset($_POST['addpost'])){
         echo $totaltime;
         // this is used for time calculation 
 
-        $query="INSERT INTO csrtimesheet (NameOfStd,emailOfStd,yearOfPr,csrPr,club,date,fromTime,endTime,totalTime,status) VALUES('$uname','$uemail','$year','$program','$clubname','$date','$starttime','$endtime','$totaltime','$status')";
+        $query="INSERT INTO csrtimesheet (NameOfStd,emailOfStd,yearOfPr,csrPr,schoolname,club,date,campus,fromTime,endTime,totalTime,status) VALUES('$uname','$uemail','$year','$program','$schoolname','$clubname','$date','$campus','$starttime','$endtime','$totaltime','$status')";
         $run=mysqli_query($db,$query);
 
         echo $run;
@@ -44,7 +48,6 @@ if(isset($_POST['addpost'])){
             },0);
             </script>
         <?php
-        // header('location:../adminlogin/generatereport.php');
     }
     
      

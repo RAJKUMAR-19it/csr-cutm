@@ -172,7 +172,9 @@ if(isset($_POST['approved'])){
                 </thead>
                 <tbody>
                   <?php
-                    $posts=getAllPostByAdmin($db,$email);
+                    $year = date("Y"); 
+                    $getSession=getSessionByYear($db,$year);
+                    $posts=getAllPostByAdmin($db,$email,$getSession);
                     $count=1;
                     foreach($posts as $post){
                     ?>
