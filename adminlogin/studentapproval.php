@@ -218,7 +218,7 @@ else
                                         <td><img src="../images/profileimg/<?=$post['profileimage']?>" height="30px"></td>
                                         <td><?=$post['status']?></td>
                                         <td>
-                                        <a href="../includes/approvestudent.php?id=<?=$post['id']?>" class="btn btn-danger">
+                                        <a href="../includes/approvestudent.php?id=<?=$post['id']?>&email=<?=$post['email']?>&name=<?=$post['name']?>" class="btn btn-danger">
                                             Aprove <i class="bi bi-exclamation"></i>
                                         </a>
                                         </td>

@@ -16,6 +16,13 @@
         return $data['Year'];
     }
 
+    function getYearBySession($db,$AddmissionYear){
+        $query="SELECT * FROM year WHERE Year='$AddmissionYear'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data['admissionyear'];
+    }
+
     function getAllPost($db,$uemail){
         $query="SELECT * FROM csrtimesheet WHERE emailOfStd='$uemail' ORDER BY id DESC";
         $run=mysqli_query($db,$query);
@@ -201,4 +208,17 @@
         $data=mysqli_fetch_assoc($run);
         return $data;
     }
+
+    function getStudentDataByRegd($db,$regd){
+        $query="SELECT * FROM studregd WHERE regd='$regd'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data;
+    }
+
+    function randPass() {
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        return substr(str_shuffle($chars),0,8);
+    }
+    
 ?>

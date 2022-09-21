@@ -5,6 +5,19 @@ $uemail=$_SESSION['email'];
 $utype=$_SESSION['usertype'];
 if($_SESSION['email'] and $utype=="admin")
 {
+    // this code for insert auto year and session
+    $thisYear=2019;
+    $query="SELECT * FROM year WHERE admissionyear='$thisYear'";
+    $runQuery=mysqli_query($db,$query);
+    if(mysqli_num_rows($runQuery)){
+        
+    }
+    else {
+        $sessionYearNew=($thisYear).'-'.($thisYear+1);
+        echo $sessionYearNew;
+        $query="INSERT INTO year (admissionyear,Year) VALUES('$thisYear','$sessionYearNew')";
+        $run=mysqli_query($db,$query) or die(mysqli_error($db));
+    }
   ?>
 <!-- <script>
       alert("welcome ");

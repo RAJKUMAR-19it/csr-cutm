@@ -5,13 +5,16 @@ $uemail=$_SESSION['email'];
 $utype=$_SESSION['usertype'];
 
 
-$AddmissionYear=2021;
+
 
 
 
 if($_SESSION['email'] and $utype=="student")
 {
-  
+  $studentData=getAllStudentDetails($db,$uemail);
+  $AddmissionYear=$studentData['admissionyear'];
+  $AddmissionYear=getYearBySession($db,$AddmissionYear);
+  echo $AddmissionYear;
   $posts=getAllPostAdmin($db);
 
   $studentResultyr1=getStudentResultyr1($db,$uemail,$AddmissionYear);

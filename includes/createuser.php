@@ -7,6 +7,7 @@
 		$name=mysqli_real_escape_string($db,$_POST['name']);
         $email=mysqli_real_escape_string($db,$_POST['email']);
 		$regdno=mysqli_real_escape_string($db,$_POST['regdno']);
+		$campus=mysqli_real_escape_string($db,$_POST['campus']);
 		$school=mysqli_real_escape_string($db,$_POST['school']);
 		$program=mysqli_real_escape_string($db,$_POST['program']);
 		$branch=mysqli_real_escape_string($db,$_POST['branch']);
@@ -14,7 +15,6 @@
 		$sex=mysqli_real_escape_string($db,$_POST['sex']);
 		$religion=mysqli_real_escape_string($db,$_POST['religion']);
 		$dob=mysqli_real_escape_string($db,$_POST['dob']);
-		$blood=mysqli_real_escape_string($db,$_POST['blood']);
 		$hobby=mysqli_real_escape_string($db,$_POST['hobby']);
 		$presentadd=mysqli_real_escape_string($db,$_POST['presentadd']);
 		$premantadd=mysqli_real_escape_string($db,$_POST['permanent']);
@@ -22,8 +22,12 @@
 
 		$image_name=$_FILES['imageupload']['name'];
         $image_tmp=$_FILES['imageupload']['tmp_name'];
+		$status="Not Approved";
 
-		$password=mysqli_real_escape_string($db,$_POST['password']);
+
+		$getSession=getSessionByYear($db,$addyr);
+		$addyr=$getSession['Year'];
+
 
 
 		echo $name."<br><br>";
@@ -36,21 +40,19 @@
 		echo $sex."<br><br>";
 		echo $religion."<br><br>";
 		echo $dob."<br><br>";
-		echo $blood."<br><br>";
 		echo $hobby."<br><br>";
 		echo $presentadd."<br><br>";
 		echo $premantadd."<br><br>";
 		echo $phone."<br><br>";
 		echo $image_name."<br><br>";
         echo $image_tmp."<br><br>";
-		echo $password."<br><br>";
 
         print "<pre>";
         print_r($_FILES);
         print "</pre>";
 
         if(move_uploaded_file($image_tmp,"../images/profileimg/$image_name")){
-            $query="INSERT INTO student (name,email,regd,schoolname,program,branch,admissionyear,sex,religion,dob,blood_group,hobby,present_address,permanent_address,password,mobile,profileimage) VALUES('$name','$email','$regdno','$school','$program','$branch','$addyr','$sex','$religion','$dob','$blood','$hobby','$presentadd','$premantadd','$password','$phone','$image_name')";
+            $query="INSERT INTO student (name,email,regd,schoolname,program,branch,campus,admissionyear,sex,religion,dob,hobby,present_address,permanent_address,mobile,profileimage,status) VALUES('$name','$email','$regdno','$school','$program','$branch','$campus','$addyr','$sex','$religion','$dob','$hobby','$presentadd','$premantadd','$phone','$image_name','$status')";
             $run=mysqli_query($db,$query) or die(mysqli_error($db));
             if ($run) {
                 header('location:../login/login.php');
@@ -59,9 +61,7 @@
                 echo "inserted error";
             }
         }
-        else {
-            echo "File Size High";
-        }
+        
     }
 
 	
@@ -70,11 +70,11 @@
         $email=mysqli_real_escape_string($db,$_POST['email']);
 		$sex=mysqli_real_escape_string($db,$_POST['sex']);
 		$religion=mysqli_real_escape_string($db,$_POST['religion']);
-		$blood=mysqli_real_escape_string($db,$_POST['blood']);
 		$hobby=mysqli_real_escape_string($db,$_POST['hobby']);
 		$presentadd=mysqli_real_escape_string($db,$_POST['presentadd']);
 		$premantadd=mysqli_real_escape_string($db,$_POST['permanent']);
 		$phone=mysqli_real_escape_string($db,$_POST['mob']);
+		$password=mysqli_real_escape_string($db,$_POST['password']);
 
 		$image_name=$_FILES['imageupload']['name'];
         $image_tmp=$_FILES['imageupload']['tmp_name'];
@@ -85,7 +85,6 @@
 		echo $email."<br><br>";
 		echo $sex."<br><br>";
 		echo $religion."<br><br>";
-		echo $blood."<br><br>";
 		echo $hobby."<br><br>";
 		echo $presentadd."<br><br>";
 		echo $premantadd."<br><br>";
@@ -94,7 +93,7 @@
         echo $image_tmp."<br><br>";
 
 		if(move_uploaded_file($image_tmp,"../images/profileimg/$image_name")){
-            $query="UPDATE  student SET name='$name', sex='$sex', religion='$religion', blood_group='$blood', hobby='$hobby', present_address='$presentadd', permanent_address='$premantadd', mobile='$phone', profileimage='$image_name'  WHERE email='$email'";
+            $query="UPDATE  student SET name='$name', sex='$sex', religion='$religion', hobby='$hobby', present_address='$presentadd', permanent_address='$premantadd', mobile='$phone', profileimage='$image_name', password='$password'  WHERE email='$email'";
             $run=mysqli_query($db,$query) or die(mysqli_error($db));
             if ($run) {
                 header('location:../adminlogin/prof.php');
@@ -185,48 +184,6 @@
         }
 	}
 
-
-	if(isset($_POST['addTeacher'])){
-		$name=mysqli_real_escape_string($db,$_POST['name']);
-		$facultyid=mysqli_real_escape_string($db,$_POST['facultyid']);
-        $email=mysqli_real_escape_string($db,$_POST['email']);
-		$mobile=mysqli_real_escape_string($db,$_POST['mob']);
-		$Degination1=mysqli_real_escape_string($db,$_POST['Degination']);
-		$Qualification=mysqli_real_escape_string($db,$_POST['Qualification']);
-		$SchoolName=mysqli_real_escape_string($db,$_POST['school']);
-		$Campus=mysqli_real_escape_string($db,$_POST['Campus']);
-		$Gender=mysqli_real_escape_string($db,$_POST['sex']);
-		// $program=mysqli_real_escape_string($db,$_POST['program']);
-		$clubname=mysqli_real_escape_string($db,$_POST['clubname']);
-		// $password=mysqli_real_escape_string($db,$_POST['password']);
-		$password="situ";
-
-
-
-		echo $name."<br><br>";
-		echo $facultyid."<br><br>";
-		echo $email."<br><br>";
-		echo $mobile."<br><br>";
-		echo $Degination1."<br><br>";
-		echo $Qualification."<br><br>";
-		echo $SchoolName."<br><br>";
-		echo $Campus."<br><br>";
-		echo $Gender."<br><br>";
-		echo $program."<br><br>";
-		echo $clubname."<br><br>";
-		
-		
-
-        $query="INSERT INTO teacher (name,email,mobile,empid,Degination,campus,Qualification,SchoolName,Clubget,Gender,password) VALUES('$name','$email','$mobile','$facultyid','$Degination1','$Campus','$Qualification','$SchoolName','$clubname','$Gender','$password')";
-        $run=mysqli_query($db,$query) or die(mysqli_error($db));
-        if ($run) {
-            header('location:https://chinmayakumarbiswal.in/test/cutmCsrMail?name='.$name.'&email='.$email);
-        }
-        else {
-            echo "inserted error";
-        }
-    }
-        
 	
 
 ?>

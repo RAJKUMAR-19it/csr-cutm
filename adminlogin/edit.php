@@ -234,22 +234,7 @@ else
                                 <input type="text" class="form-control" name="dob" value="<?=$post_images['dob']?>" readonly>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Blood group: </label>
-                            <div class="col-sm-10">
-                              <select class="form-select" aria-label="Default select example" name="blood">
-                                <option value="<?=$post_images['blood_group']?>">Select Blood <?=$post_images['blood_group']?></option>
-                                <option value="o+">O+</option>
-                                <option value="a+">A+</option>
-                                <option value="b+">B+</option>
-                                <option value="ab+">AB+</option>
-                                <option value="o-">O-</option>
-                                <option value="a-">A-</option>
-                                <option value="b-">B-</option>
-                                <option value="ab-">AB-</option>
-                              </select>
-                          </div>
-                        </div>
+                        
                         <div class="row mb-3">
                             <label for="inputText" class="col-sm-2 col-form-label">Hobby :</label>
                             <div class="col-sm-10">
@@ -274,6 +259,7 @@ else
                                 <input type="text" class="form-control" name="presentadd" value="<?=$post_images['present_address']?>" required>
                             </div>
                         </div>
+                        
                         <div class="row mb-3">
                             <label for="inputText" class="col-sm-2 col-form-label">Permanent address:</label>
                             <div class="col-sm-10">
@@ -285,6 +271,12 @@ else
                             <div class="col-sm-10">
                             <input class="form-control" type="file" id="formFile" name="imageupload" accept="image/*" required>
                           </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-2 col-form-label">Update Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" name="password" required>
+                            </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Publish Post</label>

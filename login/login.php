@@ -5,7 +5,7 @@
       $email=mysqli_real_escape_string($db,$_POST['email']);
       $password=mysqli_real_escape_string($db,$_POST['password']);
 
-      $query="SELECT * FROM student WHERE email='$email' AND password='$password'";
+        $query="SELECT * FROM student WHERE email='$email' AND password='$password' AND status='Approved'";
         $runQuery=mysqli_query($db,$query);
         if(mysqli_num_rows($runQuery)){
             $_SESSION['isUserLoggedIn']=true;
@@ -14,7 +14,7 @@
             header('location:../adminlogin/student.php');
         }
         else{
-            echo"<script>alert('Incorrect email or password !');</script>";
+            echo"<script>alert('Incorrect email and password or your account not activated please contact to admin or wait for approval !');</script>";
         }
     }
 

@@ -7,7 +7,6 @@ $utype=$_SESSION['usertype'];
 $post_images=getImagesByPost($db,$uemail);
 
 
-$AddmissionYear=2021;
 
 
 if($_SESSION['email'] and $utype=="student")
@@ -176,7 +175,6 @@ else
   <br><b>Gender:</b> <?=$studentData['sex']?></br>
   <br><b>Religion:</b> <?=$studentData['religion']?></br>
   <br><b>Date of Birth:</b> <?=$studentData['dob']?></br>
-  <br><b>Blood group:</b> <?=$studentData['blood_group']?></br>
   <br><b>Hobby:</b> <?=$studentData['hobby']?></br>
   <br><b>Mail:</b> <?=$studentData['email']?></br>
   <br><b>Mobile:</b> <?=$studentData['mobile']?></br>
